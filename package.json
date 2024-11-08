@@ -1,0 +1,20 @@
+{
+  "name": "mushroom-bot",
+  "version": "1.0.0",
+  "description": "\"# Mushroom-Bot\"",
+  "main": "src/main.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch src/main.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.16.3"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  }
+}
