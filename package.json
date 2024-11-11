@@ -2,16 +2,17 @@
   "name": "mushroom-bot",
   "version": "1.0.0",
   "description": "\"# Mushroom-Bot\"",
-  "main": "src/main.ts",
+  "main": "src/deploy-commands.ts",
   "scripts": {
     "build": "tsc",
-    "dev": "tsx watch src/main.ts"
+    "dev": "tsx watch src/deploy-commands.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^14.16.3"
+    "discord.js": "^14.16.3",
+    "google-image-fetcher": "^1.0.5"
   },
   "devDependencies": {
     "tsx": "^4.19.2",
