@@ -1,20 +1,19 @@
-const fs = require('node:fs');
-const path = require('node:path');
-const config = require('../config.json');
-
-const token = config.token;
+import fs from 'node:fs'
+import path from 'node:path'
+import { Init } from '../src/bootstrap.js'
+import { Client, Collection, Events, GatewayIntentBits } from 'discord.js'
+import { COMMANDS } from '../src/globals.js'
 
 const commandsPath = './commands';
 const commandsFolders = fs.readdirSync(commandsPath);
 
-const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.commands = new Collection();
 
 for ( const folder of commandsFolders) {
 	const folderPath = path.join(commandsPath, folder);
-	const folderFiles = fs.readdirSync(folderPath).filter((file : any) => file.endsWith('.ts'));
+	const folderFiles = fs.readdirSync(folderPath).filter((file) => file.endsWith('.ts'));
 	for (const file of folderFiles) {
 		const filePath = path.join(folderPath, file);
 		const command = require(path.join('../',filePath))
@@ -26,11 +25,14 @@ for ( const folder of commandsFolders) {
 } 
 }
 
-client.once(Events.ClientReady, (readyClient : any) => {
+client.once(Events.ClientReady, async (readyClient) => {
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
+  // On the bootup
+  await Init();
+  console.log(COMMANDS)
 });
 
-client.on(Events.InteractionCreate, async (interaction : any) => {
+client.on(Events.InteractionCreate, async (interaction) => {
 	if (!interaction.isChatInputCommand()) {
 		return;
 	}
@@ -41,7 +43,7 @@ client.on(Events.InteractionCreate, async (interaction : any) => {
 		return;
 	}
 	try {
-		await command.execute(interaction);
+		await command.run(interaction);
 	} 
 	catch (error) {
 		console.error(error);
@@ -54,9 +56,4 @@ client.on(Events.InteractionCreate, async (interaction : any) => {
 	
 });
 
-client.login(token);
-
-module.exports = {token};
-
-
-
+client.login(process.env.DISCORD_TOKEN);
