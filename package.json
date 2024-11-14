@@ -5,7 +5,7 @@
   "main": "src/main.js",
   "scripts": {
     "dev": "node --env-file=.env --watch src/main.js",
-    "deploy-commands": "node src/deploy-commands.js"
+    "deploy-commands": "node --env-file=.env scripts/deploy-commands.js"
   },
   "keywords": [],
   "author": "",
