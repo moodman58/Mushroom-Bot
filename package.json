@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "\"# Mushroom-Bot\"",
   "main": "src/main.js",
+  "type": "module",
   "scripts": {
-    "dev": "node --env-file=.env --watch src/main.js",
+    "dev": "node --env-file=.env --watch-path=src src/main.js",
     "deploy-commands": "node --env-file=.env scripts/deploy-commands.js"
   },
   "keywords": [],
@@ -14,7 +15,6 @@
     "discord.js": "^14.16.3"
   },
   "devDependencies": {
-    "tsx": "^4.19.2",
-    "typescript": "^5.6.3"
+    "tsx": "^4.19.2"
   }
 }

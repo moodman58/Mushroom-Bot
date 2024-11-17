@@ -1,7 +1,6 @@
 import { Events } from 'discord.js'
 import { Init } from '../src/bootstrap.js'
 import { DiscordClient } from '../src/globals.js'
-import { Commands } from '../src/globals.js'
 
 DiscordClient.once(Events.ClientReady, async (readyClient) => {
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
@@ -19,7 +18,7 @@ DiscordClient.on(Events.InteractionCreate, async (interaction) => {
 		return;
 	}
 	try {
-		await command(interaction);
+		await command.run(interaction);
 	} 
 	catch (error) {
 		console.error(error);

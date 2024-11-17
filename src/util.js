@@ -1,22 +1,28 @@
-import { Commands, DiscordClient } from '../src/globals.js'
-import  fs from 'node:fs'
+import { Commands, CommandPaths, DiscordClient } from '../src/globals.js'
+import  fs from 'fs/promises'
 import path from 'node:path'
 
-export async function readCommands() {
-  const foldersPath = './commands';
-  const commandFolders = fs.readdirSync(foldersPath);
-  for (const folder of commandFolders) {
-    const commandPath = path.join(foldersPath, folder);
-    const commandFiles = fs.readdirSync(commandPath).filter((file) => file.endsWith('.js'));
-    for (const file of commandFiles) {
-      const filePath = path.join(commandPath, file);
-      const command = await import("../" + filePath);
-      Commands.push(command.default);
-    }
+export async function readCommands(root="./src/commands") {
+  try {
+    const dir = await fs.readdir(root);
+    
+    for(const file of dir) { 
+      const joined = path.join(root, file);
+      const stat = await fs.stat(joined);
+      if(stat.isDirectory()) {
+        await readCommands(joined);
+      } else {
+        const filePath = `../${joined}`;
+        CommandPaths.push(path.resolve(filePath));
+        const command = await import(filePath);
+        Commands.push(command.default);
+      }
+    } 
+  } catch(err) {
+    console.error(err);
   }
-  return Commands;
 }
 
 export async function populateCommandMap() {
-  for(const command of Commands) DiscordClient.commands.set(command.info.name, command.run); 
+  for(const command of Commands) DiscordClient.commands.set(command.info.name, command); 
 }
