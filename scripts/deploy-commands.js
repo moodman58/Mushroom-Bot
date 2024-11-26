@@ -4,7 +4,7 @@ import path from 'node:path';
 import process from 'node:process';
 
 const commands = [];
-const foldersPath = './commands';
+const foldersPath = './src/commands';
 const commandFolders = fs.readdirSync(foldersPath);
 
 (async () => {
