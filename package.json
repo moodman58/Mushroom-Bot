@@ -5,7 +5,6 @@
   "main": "src/main.js",
   "type": "module",
   "scripts": {
-    "db": "node --env-file=.env --watch-path=src src/DB/insert.js",
     "dev": "node --env-file=.env --watch-path=src src/main.js",
     "deploy-commands": "node --env-file=.env scripts/deploy-commands.js"
   },
@@ -13,8 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^14.16.3",
-    "mongodb": "^6.11.0"
+    "discord.js": "^14.17.3"
   },
   "devDependencies": {
     "tsx": "^4.19.2"
