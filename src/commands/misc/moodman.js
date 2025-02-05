@@ -5,7 +5,7 @@ import { DiscordClient, CommandPaths } from '../../globals.js'
 const command = {
 	info: new SlashCommandBuilder()
 		.setName('help')
-		.setDescription('The help command will give you a list of commands and a high level description...'),
+		.setDescription('Mushroom Bot - Command list and Structure'),
 	run: async (interaction) => {
     let helpMessage = "";
     const categories = new Set();
@@ -15,21 +15,15 @@ const command = {
         if(entry === "commands") commandIndex = i;
         return commandIndex != -1 && i > commandIndex;
       });
+      console.log(filtered)
+      // We know that anything that does not end with a .js is a folder / category
       let reset = -1;
       for(let i = 0; i < filtered.length; ++i) {
         if(i === 0 && !categories.has(filtered[i])) {
           helpMessage += `${filtered[i]}\n`;
         } else {
             const check = filtered[i];
-            if(!categories.has(filtered[i])) {
-              if(filtered[i].endsWith(".js")) {
-                helpMessage += "\t".repeat(i) + `${check}`;
-                const obj = interaction.client.commands.get(interaction.commandName);
-                helpMessage += ` - ${obj.info.description}\n`;
-              } else {
-                helpMessage += "\t".repeat(i) + `${check}\n`;
-              }
-            }
+            if(!categories.has(filtered[i])) helpMessage += "\t".repeat(i) + `${check}\n`;
           }
           categories.add(filtered[i])
         }
