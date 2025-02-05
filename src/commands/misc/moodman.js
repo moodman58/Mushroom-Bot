@@ -4,7 +4,7 @@ import { DiscordClient, CommandPaths } from '../../globals.js'
 
 const command = {
 	info: new SlashCommandBuilder()
-		.setName('help')
+		.setName('moodman')
 		.setDescription('Mushroom Bot - Command list and Structure'),
 	run: async (interaction) => {
     let helpMessage = "";
